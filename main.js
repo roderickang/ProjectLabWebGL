@@ -2,6 +2,8 @@ import * as th from './three/build/three.module.js'
 
 let scene, camera, renderer
 
+// Lighting Error
+
 let pointLight=()=>{
 
     let light = new th.PointLight(0xFFFFFF,0.9,1000)
