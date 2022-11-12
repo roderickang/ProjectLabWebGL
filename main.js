@@ -2,9 +2,11 @@ import * as th from './three/build/three.module.js'
 
 let scene, camera, renderer
 
+// Lighting Error
+
 let pointLight=()=>{
 
-    light = new th.PointLight(0xFFFFFF,0.9,1000)
+    let light = new th.PointLight(0xFFFFFF,0.9,1000)
 
     light.position.set(-30,50,70)
     light.castShadow = true
@@ -15,12 +17,29 @@ let pointLight=()=>{
 
 let spotLight=()=>{
 
-    light = new th.SpotLight(0xFAD5A5,1,1000)
+    let light = new th.SpotLight(0xFAD5A5,1,1000)
 
     light.position.set(-50,50,160)
     light.castShadow = true
 
     scene.add(light)
+}
+
+let ground=()=>{
+
+    let geo = new th.PlaneGeometry(200,200)
+    let loader = new th.TextureLoader()
+    let texture = loader.load("./assets/texture/grass.jpg")
+    let mat = new th.MeshPhongMaterial({
+        color: 0xFFFFFF,
+        map: texture
+    })
+    let mesh = new th.Mesh(geo, mat)
+    mesh.position.set(0,0,0)
+
+    mesh.receiveShadow = true
+
+    scene.add(mesh)
 }
 
 let init=()=>{
@@ -40,9 +59,11 @@ let init=()=>{
     renderer.shadowMap.PCFShadowMap = true
 
     document.body.appendChild(renderer.domElement)
-
+    
+    
+    // spotLight()
+    ground()
     pointLight()
-    spotLight()
 }
 
 let render=()=>{
