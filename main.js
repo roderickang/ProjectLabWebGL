@@ -2,6 +2,27 @@ import * as th from './three/build/three.module.js'
 
 let scene, camera, renderer
 
+let pointLight=()=>{
+
+    light = new th.PointLight(0xFFFFFF,0.9,1000)
+
+    light.position.set(-30,50,70)
+    light.castShadow = true
+
+    scene.add(light)
+
+}
+
+let spotLight=()=>{
+
+    light = new th.SpotLight(0xFAD5A5,1,1000)
+
+    light.position.set(-50,50,160)
+    light.castShadow = true
+
+    scene.add(light)
+}
+
 let init=()=>{
 
     scene = new th.Scene()
@@ -19,9 +40,13 @@ let init=()=>{
     renderer.shadowMap.PCFShadowMap = true
 
     document.body.appendChild(renderer.domElement)
+
+    pointLight()
+    spotLight()
 }
 
 let render=()=>{
+    requestAnimationFrame(render)
     renderer.render(scene, camera)
 }
 
